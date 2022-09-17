@@ -10,20 +10,24 @@ for _ in range(tc):
     list_n = sys.stdin.readline().strip()[1:-1].split(',')
     queue = deque(list_n)
 
-    cnt_D = p.count('D')
     cnt_R = 0
 
-    if cnt_D >= n:
-        print("error")
-    else:
-        for i in p:
-            if i == 'R':
-                cnt_R += 1
-            elif i == 'D':
+    if n == 0:
+        queue = []
+
+    for i in p:
+        if i == 'R':
+            cnt_R += 1
+        elif i == 'D':
+            if len(queue) == 0:
+                print("error")
+                break
+            else:
                 if cnt_R % 2:
                     queue.pop()
                 else:
                     queue.popleft()
+    else:
         if cnt_R % 2:
             queue.reverse()
             print("[" + ','.join(queue) + "]")
