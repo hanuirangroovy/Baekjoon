@@ -14,10 +14,11 @@ def tomato():
 m, n = map(int, sys.stdin.readline().split())
 graph = []
 result = 0
-result_zero = 0
+result_ripen = 0
+result_unripen = 0
 q = deque([])
 for i in range(n):
-    graph.append(list(sys.stdin.readline().strip().split()))
+    graph.append(list(map(int, sys.stdin.readline().split())))
     for j in range(m):
         if graph[i][j] == 1:
             q.append([i,j])
@@ -25,27 +26,24 @@ for i in range(n):
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
 
+for i in range(n):
+    for j in range(m):
+        if graph[i][j] == 1:
+            result_ripen += 1
+
 tomato()
 
 for i in range(n):
     for j in range(m):
         if graph[i][j] == 0:
-            result_zero = -1
+            result_unripen += 1
         else:
             result = max(result, graph[i][j])
 
-if result_zero == -1:
-    print(result_zero)
+if result_ripen == n*m:
+    print(0)
+elif result_unripen > 0:
+    print(-1)
 else:
-    print(result)
+    print(result-1)
 
-
-
-
-
-
-for i in range(n):
-    for j in range(m):
-        tomato(i,j)
-
-print(graph)
